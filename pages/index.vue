@@ -1,17 +1,18 @@
 <template>
   <div class="page">
+    <search-form />
     <shop-list />
   </div>
 </template>
 
 <script>
-// import { requestGourmetSearch } from '~/utils/requestGourmetSearch';
+import SearchForm from '~/components/SearchFrom';
 import ShopList from '~/components/ShopList';
-import API_KEY from '~/constants/key';
 import * as mutation from '~/constants/mutation-types';
 
 export default {
   components: {
+    SearchForm,
     ShopList
   },
   async asyncData(context) {
@@ -19,19 +20,9 @@ export default {
     console.log('Client Side: ', process.client);
     if (process.client) return;
 
-    const params = {
-      key: API_KEY,
-      large_area: 'Z011',
-      format: 'json'
-    };
-    let paramsToString = '';
-    for (const key in params) {
-      paramsToString += `${key}=${params[key]}&`;
-    }
-    paramsToString = paramsToString.slice(0, -1);
-    const { data } = await context.$axios.get(`http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?${paramsToString}`);
+    const { data } = await context.$axios.get(`/api/?params=large_area=Z011`);
 
-    await context.store.dispatch(mutation.SEARCH_SHOP, data.results);
+    await context.store.dispatch(mutation.SEARCH_SHOP, data);
   },
   created() {}
 };

@@ -25,11 +25,7 @@ export default {
   computed: {
     ...mapState(['json'])
   },
-  created() {
-    this.$axios.$get('/api').then(response => {
-      console.log(response);
-    });
-  }
+  created() {}
 };
 </script>
 
