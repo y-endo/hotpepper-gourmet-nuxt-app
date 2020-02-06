@@ -1,6 +1,6 @@
 <template>
   <div class="shop-list">
-    <article v-for="item in json.shop" :key="item.id">
+    <article v-for="item in json.shop" :key="item.id" class="shop-list__item">
       <a :href="item.urls.pc" target="_blnak" rel="noopener" class="link-box">
         <div class="thumbnail"><img :src="item.photo.pc.m" alt="" class="thumbnail__image" /></div>
         <div class="detail">
@@ -37,11 +37,15 @@ export default {
   padding: 0 20px;
 }
 
+.shop-list__item {
+  &:nth-child(2n) {
+    background: #f8f8f8;
+  }
+}
+
 .link-box {
   display: flex;
-  margin-top: 20px;
-  padding: 10px;
-  border: solid 2px #ccc;
+  padding: 20px 15px;
 }
 
 .thumbnail__image {

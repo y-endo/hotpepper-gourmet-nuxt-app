@@ -1,17 +1,19 @@
-import * as mutation from '~/constants/mutation-types';
+import * as mutationType from './mutation-types';
 
 export const state = () => ({
-  json: {}
+  json: {},
+  textSearch: '定番のおすすめ'
 });
 
 export const mutations = {
-  [mutation.SEARCH_SHOP](state, payload) {
-    state.json = payload;
+  [mutationType.SEARCH_SHOP](state, payload) {
+    state.json = payload.resultSearch;
+    if (payload.textSearch) state.textSearch = payload.textSearch;
   }
 };
 
 export const actions = {
-  [mutation.SEARCH_SHOP]({ commit }, payload) {
-    commit(mutation.SEARCH_SHOP, payload);
+  [mutationType.SEARCH_SHOP]({ commit }, payload) {
+    commit(mutationType.SEARCH_SHOP, payload);
   }
 };
