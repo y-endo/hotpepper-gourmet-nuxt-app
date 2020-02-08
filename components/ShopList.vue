@@ -1,6 +1,6 @@
 <template>
   <div class="shop-list">
-    <article v-for="item in json.shop" :key="item.id" class="shop-list__item">
+    <article v-for="item in searchResult.shop" :key="item.id" class="shop-list__item">
       <a :href="item.urls.pc" target="_blnak" rel="noopener" class="link-box">
         <div class="thumbnail"><img :src="item.photo.pc.m" alt="" class="thumbnail__image" /></div>
         <div class="detail">
@@ -23,7 +23,7 @@ import { mapState } from 'vuex';
 export default {
   name: 'ShopList',
   computed: {
-    ...mapState(['json'])
+    ...mapState(['searchResult'])
   },
   created() {}
 };

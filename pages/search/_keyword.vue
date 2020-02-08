@@ -3,6 +3,7 @@
     <search-form />
     <p>{{ textSearch }}</p>
     <shop-list />
+    <search-pagination />
   </div>
 </template>
 
@@ -10,23 +11,29 @@
 import { mapState } from 'vuex';
 import SearchForm from '~/components/SearchFrom';
 import ShopList from '~/components/ShopList';
+import SearchPagination from '~/components/SearchPagination';
 import { SEARCH_SHOP } from '~/store/mutation-types';
 
 export default {
   components: {
     SearchForm,
-    ShopList
+    ShopList,
+    SearchPagination
   },
   computed: {
     ...mapState(['textSearch'])
   },
   async asyncData(context) {
-    console.log('[/index.vue] Server Side: ', process.server);
-    console.log('[/index.vue] Client Side: ', process.client);
+    console.log('[/search/_keyword.vue] Server Side: ', process.server);
+    console.log('[/search/_keyword.vue] Client Side: ', process.client);
 
-    const { data } = await context.$axios.get(`/api/?params=special=LT0090&count=${context.store.state.searchOption.count}`);
+    const keyword = encodeURIComponent(context.params.keyword);
 
-    await context.store.dispatch(SEARCH_SHOP, { resultSearch: data });
+    if (keyword && keyword !== '') {
+      const resultSearch = await context.$axios.$get(`/api/?params=keyword=${keyword}&count=${context.store.state.searchOption.count}`);
+
+      context.store.dispatch(SEARCH_SHOP, { resultSearch, textSearch: `${context.params.keyword}の検索結果` });
+    }
   },
   created() {}
 };

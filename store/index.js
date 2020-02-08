@@ -1,13 +1,16 @@
 import * as mutationType from './mutation-types';
 
 export const state = () => ({
-  json: {},
+  searchOption: {
+    count: 10
+  },
+  searchResult: {},
   textSearch: '定番のおすすめ'
 });
 
 export const mutations = {
   [mutationType.SEARCH_SHOP](state, payload) {
-    state.json = payload.resultSearch;
+    state.searchResult = payload.resultSearch;
     if (payload.textSearch) state.textSearch = payload.textSearch;
   }
 };
