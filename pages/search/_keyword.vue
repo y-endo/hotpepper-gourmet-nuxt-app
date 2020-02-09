@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <search-form />
-    <p>{{ textSearch }}</p>
+    <p>{{ searchText }}</p>
     <shop-list />
     <search-pagination />
   </div>
@@ -15,13 +15,14 @@ import SearchPagination from '~/components/SearchPagination';
 import { SEARCH_SHOP } from '~/store/mutation-types';
 
 export default {
+  watchQuery: ['page'],
   components: {
     SearchForm,
     ShopList,
     SearchPagination
   },
   computed: {
-    ...mapState(['textSearch'])
+    ...mapState(['searchText'])
   },
   async asyncData(context) {
     console.log('[/search/_keyword.vue] Server Side: ', process.server);
@@ -30,9 +31,15 @@ export default {
     const keyword = encodeURIComponent(context.params.keyword);
 
     if (keyword && keyword !== '') {
-      const resultSearch = await context.$axios.$get(`/api/?params=keyword=${keyword}&count=${context.store.state.searchOption.count}`);
+      let query = `keyword=${keyword}&count=${context.store.state.searchOption.count}`;
 
-      context.store.dispatch(SEARCH_SHOP, { resultSearch, textSearch: `${context.params.keyword}の検索結果` });
+      if (context.query && context.query.page) {
+        query += `&start=${context.query.page}`;
+      }
+
+      const data = await context.$axios.$get(`/api/?${query}`);
+
+      context.store.dispatch(SEARCH_SHOP, { data, searchText: `${context.params.keyword}の検索結果` });
     }
   },
   created() {}

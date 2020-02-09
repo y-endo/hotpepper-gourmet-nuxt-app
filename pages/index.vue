@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <search-form />
-    <p>{{ textSearch }}</p>
+    <p>{{ searchText }}</p>
     <shop-list />
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
     ShopList
   },
   computed: {
-    ...mapState(['textSearch'])
+    ...mapState(['searchText'])
   },
   async asyncData(context) {
     console.log('[/index.vue] Server Side: ', process.server);
@@ -26,7 +26,7 @@ export default {
 
     const { data } = await context.$axios.get(`/api/?params=special=LT0090&count=${context.store.state.searchOption.count}`);
 
-    await context.store.dispatch(SEARCH_SHOP, { resultSearch: data });
+    await context.store.dispatch(SEARCH_SHOP, { data });
   },
   created() {}
 };

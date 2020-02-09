@@ -1,6 +1,12 @@
 # hotpepper-gourmet-nuxt-app
 
-> My shining Nuxt.js project
+ホットペッパーグルメサーチAPIを使ったNuxt製の店舗検索Webサービス  
+
+## ハマったこと
+queryを変更したときにasyncDataが走らない。  
+ → watchQueryを使って解決
+https://github.com/nuxt/nuxt.js/issues/2591  
+https://ja.nuxtjs.org/api/pages-watchquery/  
 
 ## Build Setup
 

@@ -5,13 +5,13 @@ export const state = () => ({
     count: 10
   },
   searchResult: {},
-  textSearch: '定番のおすすめ'
+  searchText: '定番のおすすめ'
 });
 
 export const mutations = {
   [mutationType.SEARCH_SHOP](state, payload) {
-    state.searchResult = payload.resultSearch;
-    if (payload.textSearch) state.textSearch = payload.textSearch;
+    state.searchResult = payload.data;
+    if (payload.searchText) state.searchText = payload.searchText;
   }
 };
 
