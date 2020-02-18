@@ -9,7 +9,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import SearchForm from '~/components/SearchFrom';
+import SearchForm from '~/components/SearchForm';
 import ShopList from '~/components/ShopList';
 import SearchPagination from '~/components/SearchPagination';
 import { SEARCH_SHOP } from '~/store/mutation-types';

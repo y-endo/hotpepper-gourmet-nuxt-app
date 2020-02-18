@@ -8,7 +8,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import SearchForm from '~/components/SearchFrom';
+import SearchForm from '~/components/SearchForm';
 import ShopList from '~/components/ShopList';
 import { SEARCH_SHOP } from '~/store/mutation-types';
 
@@ -24,7 +24,7 @@ export default {
     console.log('[/index.vue] Server Side: ', process.server);
     console.log('[/index.vue] Client Side: ', process.client);
 
-    const { data } = await context.$axios.get(`/api/?params=special=LT0090&count=${context.store.state.searchOption.count}`);
+    const { data } = await context.$axios.get(`/api/?special=LT0090&count=${context.store.state.searchOption.count}`);
 
     await context.store.dispatch(SEARCH_SHOP, { data });
   },
